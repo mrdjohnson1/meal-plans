@@ -30,13 +30,13 @@ a{color:var(--green2)}
 button{font:inherit;cursor:pointer}
 :focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 .top{position:sticky;top:0;z-index:20;background:var(--green);color:#fff;display:flex;align-items:center;gap:8px;padding:8px max(3vw,10px);box-shadow:0 2px 10px #0003}
-.top .brand{font-weight:800;font-size:18px;color:#fff;text-decoration:none;margin-right:auto;white-space:nowrap}
+.top .brand{font-weight:800;font-size:18px;color:#fff;text-decoration:none;margin:0 auto 0 6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ib{min-width:44px;height:44px;border:0;border-radius:10px;background:#ffffff1a;color:#fff;font-weight:700;padding:0 12px}
 .ib:hover{background:#ffffff33}
 .drawer{position:fixed;inset:0;z-index:30;display:none}
 .drawer.open{display:block}
 .drawer .shade{position:absolute;inset:0;background:#0007}
-.drawer nav{position:absolute;top:0;left:0;bottom:0;width:min(340px,88vw);background:var(--page);overflow-y:auto;padding:16px;box-shadow:4px 0 20px #0004}
+.drawer nav{position:absolute;top:0;right:0;bottom:0;width:min(340px,88vw);background:var(--page);overflow-y:auto;padding:16px;box-shadow:-4px 0 20px #0004}
 .drawer h4{margin:16px 0 6px;font-size:13px;color:var(--mute)}
 .drawer a{display:flex;align-items:center;min-height:44px;padding:0 12px;border-radius:10px;text-decoration:none;color:var(--ink);font-weight:600}
 .drawer a:hover,.drawer a.on{background:var(--tint)}
@@ -95,14 +95,15 @@ mark{background:#f7d774;color:#000;border-radius:3px}
 .flash{animation:fl 1.6s ease}@keyframes fl{0%{background:#f7d77488}100%{background:transparent}}
 @media(prefers-reduced-motion:reduce){.flash{animation:none}.bar i{transition:none}}
 @media(max-width:600px){table{font-size:14px}.stack thead{display:none}.stack tr{display:grid;padding-block:8px;border-bottom:1px solid var(--line)}.stack td{display:flow-root;border:0;padding:3px 0;padding-inline-start:7.5em;text-align:start}.stack td::before{content:attr(data-l);float:inline-start;width:7em;margin-inline-start:-7.5em;font-weight:700;color:var(--mute);font-size:13px;white-space:normal}.stack td:empty{display:none}.stack tbody tr:nth-child(even) td{background:none}
-.top .brand{font-size:16px}.plate div{padding:0 8px}}
+.top .brand{display:none}.top{justify-content:flex-end}.top>a:first-child{margin-right:auto}.plate div{padding:0 8px}}
 </style>
 <script>new MutationObserver(()=>{for(const c of document.querySelectorAll('.stack td:not([data-l])')){let i=0,p=c;while(p=p.previousElementSibling)i+=p.colSpan;c.dataset.l=c.closest('table').rows[0].cells[i]?.textContent||''}}).observe(document,{childList:true,subtree:true})</script>
 </head>
 <body>
 <header class="top">
-  <button class="ib" id="menuBtn" aria-label="Open menu">☰ Menu</button>
+  <a class="ib btn" href="#home" aria-label="Home">Home</a>
   <a class="brand" href="#home">40-40-20 Meal Plans</a>
+  <button class="ib" id="menuBtn" aria-label="Open menu">☰ Menu</button>
   <a class="ib btn" href="#search" aria-label="Search">Search</a>
 </header>
 <div class="drawer" id="drawer"><div class="shade" id="shade"></div><nav id="nav" aria-label="Sections"></nav></div>
