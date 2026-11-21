@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="38%" r="75%"><stop offset="0" stop-color="#2e6b56"/><stop offset="1" stop-color="#1a3f33"/></radialGradient>
+    <radialGradient id="plate" cx="45%" cy="40%" r="60%"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#e9efeb"/></radialGradient>
+    <linearGradient id="chx" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f2b766"/><stop offset="1" stop-color="#c97a2e"/></linearGradient>
+    <radialGradient id="tom" cx="35%" cy="30%" r="70%"><stop offset="0" stop-color="#ff7a5c"/><stop offset="1" stop-color="#c8321b"/></radialGradient>
+  </defs>
+  <rect width="512" height="512" fill="url(#bg)"/>
+  <!-- plate shadow -->
+  <ellipse cx="256" cy="282" rx="190" ry="186" fill="#0b2219" opacity=".35"/>
+  <!-- plate -->
+  <circle cx="256" cy="262" r="188" fill="#dfe7e2"/>
+  <circle cx="256" cy="262" r="176" fill="url(#plate)"/>
+  <circle cx="256" cy="262" r="140" fill="none" stroke="#d3ddd7" stroke-width="4"/>
+  <!-- rice mound -->
+  <g>
+    <path d="M118 252 C112 196 170 160 224 172 C266 180 282 214 270 246 C262 272 214 284 168 280 C138 278 120 270 118 252 Z" fill="#fbf6e8" stroke="#e7dcc0" stroke-width="5"/>
+    <g fill="#e9dfc4">
+      <ellipse cx="170" cy="214" rx="9" ry="4.5" transform="rotate(-25 170 214)"/>
+      <ellipse cx="205" cy="200" rx="9" ry="4.5" transform="rotate(20 205 200)"/>
+      <ellipse cx="236" cy="226" rx="9" ry="4.5" transform="rotate(-10 236 226)"/>
+      <ellipse cx="160" cy="250" rx="9" ry="4.5" transform="rotate(30 160 250)"/>
+      <ellipse cx="200" cy="244" rx="9" ry="4.5" transform="rotate(-35 200 244)"/>
+      <ellipse cx="240" cy="258" rx="9" ry="4.5" transform="rotate(15 240 258)"/>
+    </g>
+  </g>
+  <!-- grilled chicken -->
+  <g>
+    <path d="M282 168 C330 140 396 162 404 214 C412 262 372 300 320 296 C282 292 258 262 262 224 C264 198 268 178 282 168 Z" fill="url(#chx)" stroke="#a8601f" stroke-width="6"/>
+    <g stroke="#8a4a14" stroke-width="9" stroke-linecap="round" opacity=".75">
+      <line x1="300" y1="188" x2="352" y2="270"/>
+      <line x1="330" y1="174" x2="384" y2="256"/>
+      <line x1="282" y1="214" x2="320" y2="276"/>
+    </g>
+  </g>
+  <!-- broccoli -->
+  <g>
+    <path d="M196 352 l14 -42 h18 l10 44 z" fill="#9ccc65" stroke="#6f9f3c" stroke-width="4"/>
+    <path d="M262 362 l10 -40 h18 l8 42 z" fill="#9ccc65" stroke="#6f9f3c" stroke-width="4"/>
+    <g fill="#3f9b3a" stroke="#2c7a2a" stroke-width="4">
+      <circle cx="196" cy="300" r="26"/><circle cx="224" cy="286" r="28"/><circle cx="246" cy="306" r="24"/><circle cx="214" cy="318" r="22"/>
+      <circle cx="262" cy="316" r="24"/><circle cx="288" cy="302" r="26"/><circle cx="306" cy="324" r="22"/><circle cx="280" cy="330" r="20"/>
+    </g>
+    <g fill="#5cb85c"><circle cx="216" cy="280" r="8"/><circle cx="282" cy="296" r="8"/><circle cx="192" cy="294" r="6"/></g>
+  </g>
+  <!-- cherry tomatoes -->
+  <g>
+    <circle cx="352" cy="330" r="30" fill="url(#tom)" stroke="#a52512" stroke-width="4"/>
+    <path d="M352 306 l6 10 l11 -2 l-7 9 l7 9 l-11 -2 l-6 10 l-6 -10 l-11 2 l7 -9 l-7 -9 l11 2 z" fill="#3f9b3a" transform="translate(0 0) scale(1)"/>
+    <circle cx="146" cy="322" r="24" fill="url(#tom)" stroke="#a52512" stroke-width="4"/>
+    <circle cx="140" cy="314" r="6" fill="#ffb3a1" opacity=".8"/><circle cx="344" cy="320" r="7" fill="#ffb3a1" opacity=".8"/>
+  </g>
+</svg>

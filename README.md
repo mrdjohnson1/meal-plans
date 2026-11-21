@@ -18,7 +18,8 @@ A phone-friendly meal plan app: 2,100 calories a day at 40% protein, 40% carbs a
 | `index.html` | The app (all content is inside this file) |
 | `manifest.webmanifest` | App name, colors and icon for "Add to Home Screen" |
 | `sw.js` | Lets the app open without a connection after the first visit |
-| `icon-192.png`, `icon-512.png`, `apple-touch-icon.png` | Home screen icons |
+| `icon-192.png`, `icon-512.png`, `apple-touch-icon.png` | Home screen icons (cartoon plate of food) |
+| `icon.svg` | The icon artwork, in case you want to edit it |
 | `.nojekyll` | Tells GitHub Pages to serve the files as they are |
 | `downloads/40-40-20-Complete-Meal-Plan-Collection.docx` | The full collection as a Word file |
 
