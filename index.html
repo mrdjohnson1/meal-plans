@@ -135,11 +135,15 @@ mark{background:#f7d774;color:#000;border-radius:3px}
 .wbar{height:14px;background:var(--tint);border-radius:99px;overflow:hidden;margin:12px 0 6px}.wbar div{height:100%;background:var(--blue);border-radius:99px;transition:width .3s}
 .wnum{margin:0 0 10px}.wnum b{font-size:22px}
 .wrow{display:flex;gap:8px;flex-wrap:wrap}.wrow input,.wrow select{flex:1 1 120px;min-height:44px;font:inherit;font-size:16px;padding:0 12px;border:1px solid var(--line);border-radius:10px;background:#fff;color:inherit}.wrow .btn{flex:0 0 auto;cursor:pointer;font:inherit;font-weight:700}
+.dq{display:flex;flex-direction:column;flex:1 1 110px;font-size:13px;font-weight:700;gap:4px;color:#000}.dq input{flex:none;height:44px;width:100%;min-height:44px;font:inherit;font-size:16px;font-weight:400;padding:0 12px;border:1px solid var(--line);border-radius:10px;background:#fff;color:#000;box-sizing:border-box}
 .wsub{margin:0 0 10px;font-size:14px;line-height:1.45}
 .wwarn{margin-top:10px;background:#fff7e0;border:1px solid #e8c766;border-radius:10px;padding:10px 12px;font-size:14px;line-height:1.45}.wwarn:empty{display:none}
 .wtot{margin-top:10px;font-size:14px;font-weight:700}
 .wlog{list-style:none;padding:0;margin:12px 0 0;border-top:1px solid var(--line)}.wlog li{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--line);font-size:14px}
-.wlog button{border:0;background:var(--tint);border-radius:8px;min-height:32px;padding:0 10px;font:inherit;font-size:13px;cursor:pointer;color:inherit}
+/*w*/.wlog button{border:0;background:var(--tint);border-radius:8px;min-height:32px;padding:0 10px;font:inherit;font-size:13px;cursor:pointer;color:inherit}
+.water,.water h2,.water h3,.water p,.water b,.water span,.water li,.wsub,.wdate,.wnum,.wtot,.wwarn{color:#000}
+.water{background:#fff}.wrow input,.wrow select,.wlog button{color:#000;background:#fff}.wlog button{background:#e9efe9}
+.wrow input::placeholder{color:#444;opacity:1}.wrow select option{color:#000;background:#fff}
 </style>
 <script>new MutationObserver(()=>{for(const c of document.querySelectorAll('.stack td:not([data-l])')){let i=0,p=c;while(p=p.previousElementSibling)i+=p.colSpan;c.dataset.l=c.closest('table').rows[0].cells[i]?.textContent||''}}).observe(document,{childList:true,subtree:true})</script>
 </head>
@@ -193,23 +197,25 @@ function home(){
 
 const WGOAL=128;
 const DR=[
- {id:'pov',n:'POV Active x Demand',sv:'1 scoop',f:['Blue Raspberry Strike','Pineapple Mango','Orange Citrus'],cal:10,c:1,na:750,lim:1,w:'High sodium: 750 mg per scoop.'},
- {id:'mio',n:'MiO Original and Vitamins',sv:'1/2 tsp squeeze',f:['Berry Pomegranate','Black Cherry','Blackberry Raspberry','Blueberry Lemonade','Cherry Blackberry','Fruit Punch','Lemonade','Mango Peach','Orange Tangerine','Orange Vanilla','Strawberry Watermelon','Sweet Tea','Other MiO flavor'],cal:0,c:0,na:35,w:''},
- {id:'mioh',n:'MiO Hydrate (electrolytes)',sv:'3/4 tsp squeeze',f:['Lemon Lime','Berry Blast','Arctic Grape','Strawberry Lemonade','Other Hydrate flavor'],cal:0,c:1,na:115,w:''},
- {id:'mioe',n:'MiO Energy (caffeine)',sv:'3/4 tsp squeeze',f:['Acai Berry Storm','Black Cherry','Green Thunder','Strawberry Pineapple Smash','Tropical Fusion','Wicked Blue Citrus','Other Energy flavor'],cal:0,c:0,na:20,caf:90,lim:1,w:'Caffeine: 90 mg per 3/4 tsp. Use it before noon, and skip it on days you already had your coffee.'},
- {id:'gtq',n:'Gatorade Thirst Quencher powder',sv:'per 12 oz mixed to label',per12:1,f:['Fruit Punch','Lemon-Lime','Orange','Glacier Freeze','Riptide Rush','Other flavor'],cal:80,c:22,na:150,lim:1,w:'Full sugar: 21 g added sugar per 12 oz. It hits blood sugar fast. Use it only during or right after long or very hard training, and count the carbs toward your next meal.'},
- {id:'gtqp',n:'Gatorade Thirst Quencher packet',sv:'1 packet (15 to 20 oz)',f:['Fruit Punch','Lemon-Lime','Orange','Glacier Freeze','Riptide Rush','Other flavor'],cal:130,c:34,na:230,lim:1,w:'Full sugar: 34 g carbs per packet. It hits blood sugar fast. Use it only during or right after long or very hard training, and count the carbs toward your next meal.'},
- {id:'gz',n:'Gatorade Zero powder stick',sv:'1 stick',f:['Glacier Freeze','Glacier Cherry','Strawberry Ice','Orange','Lemon-Lime','Grape','Fruit Punch','Other flavor'],cal:5,c:1,na:270,w:''},
- {id:'propel',n:'Propel powder',sv:'1 packet or stick',f:['Berry','Black Cherry','Grape','Kiwi Strawberry','Lemon','Raspberry Lemonade','Watermelon','Other flavor'],cal:5,c:1,na:260,w:''},
- {id:'nuun',n:'Nuun Sport tablet',sv:'1 tablet',f:['Lemon Lime','Citrus Fruit','Strawberry Lemonade','Tri-Berry','Watermelon','Other flavor'],cal:15,c:4,na:300,lim:1,w:'1 g added sugar and 300 mg sodium per tablet.'},
- {id:'liv',n:'Liquid I.V. Sugar-Free',sv:'1 stick',f:['Lemon Lime','White Peach','Green Grape','Rainbow Sherbet','Other flavor'],cal:20,c:5,na:530,lim:1,w:'High sodium: about 510 to 530 mg per stick.'},
- {id:'cl',n:'Crystal Light on-the-go',sv:'1 packet',f:['Lemonade','Pink Lemonade','Raspberry Lemonade','Fruit Punch','Other flavor'],cal:10,c:0,na:0,w:''}
+ {id:'pov',n:'POV Active x Demand',u:'scoop',us:'scoops',sv:'1 scoop',f:['Blue Raspberry Strike','Pineapple Mango','Orange Citrus'],cal:10,c:1,na:750,lim:1,w:'High sodium: 750 mg per scoop.'},
+ {id:'mio',n:'MiO Original and Vitamins',u:'squeeze',us:'squeezes',sv:'1 squeeze (1/2 tsp)',f:['Berry Pomegranate','Black Cherry','Blackberry Raspberry','Blueberry Lemonade','Cherry Blackberry','Fruit Punch','Lemonade','Mango Peach','Orange Tangerine','Orange Vanilla','Strawberry Watermelon','Sweet Tea','Other MiO flavor'],cal:0,c:0,na:35,w:''},
+ {id:'mioh',n:'MiO Hydrate (electrolytes)',u:'squeeze',us:'squeezes',sv:'1 squeeze (3/4 tsp)',f:['Lemon Lime','Berry Blast','Arctic Grape','Strawberry Lemonade','Other Hydrate flavor'],cal:0,c:1,na:115,w:''},
+ {id:'mioe',n:'MiO Energy (caffeine)',u:'squeeze',us:'squeezes',sv:'1 squeeze (3/4 tsp)',f:['Acai Berry Storm','Black Cherry','Green Thunder','Strawberry Pineapple Smash','Tropical Fusion','Wicked Blue Citrus','Other Energy flavor'],cal:0,c:0,na:20,caf:90,lim:1,w:'Caffeine: 90 mg per 3/4 tsp. Use it before noon, and skip it on days you already had your coffee.'},
+ {id:'gtq',n:'Gatorade Thirst Quencher powder',u:'oz',us:'oz',sv:'12 oz mixed to label strength',per12:1,f:['Fruit Punch','Lemon-Lime','Orange','Glacier Freeze','Riptide Rush','Other flavor'],cal:80,c:22,na:150,lim:1,w:'Full sugar: 21 g added sugar per 12 oz. It hits blood sugar fast. Use it only during or right after long or very hard training, and count the carbs toward your next meal.'},
+ {id:'gtqp',n:'Gatorade Thirst Quencher packet',u:'packet',us:'packets',sv:'1 packet',f:['Fruit Punch','Lemon-Lime','Orange','Glacier Freeze','Riptide Rush','Other flavor'],cal:130,c:34,na:230,lim:1,w:'Full sugar: 34 g carbs per packet. It hits blood sugar fast. Use it only during or right after long or very hard training, and count the carbs toward your next meal.'},
+ {id:'gz',n:'Gatorade Zero powder stick',u:'stick',us:'sticks',sv:'1 stick',f:['Glacier Freeze','Glacier Cherry','Strawberry Ice','Orange','Lemon-Lime','Grape','Fruit Punch','Other flavor'],cal:5,c:1,na:270,w:''},
+ {id:'propel',n:'Propel powder',u:'packet',us:'packets',sv:'1 packet or stick',f:['Berry','Black Cherry','Grape','Kiwi Strawberry','Lemon','Raspberry Lemonade','Watermelon','Other flavor'],cal:5,c:1,na:260,w:''},
+ {id:'nuun',n:'Nuun Sport tablet',u:'tablet',us:'tablets',sv:'1 tablet',f:['Lemon Lime','Citrus Fruit','Strawberry Lemonade','Tri-Berry','Watermelon','Other flavor'],cal:15,c:4,na:300,lim:1,w:'1 g added sugar and 300 mg sodium per tablet.'},
+ {id:'liv',n:'Liquid I.V. Sugar-Free',u:'stick',us:'sticks',sv:'1 stick',f:['Lemon Lime','White Peach','Green Grape','Rainbow Sherbet','Other flavor'],cal:20,c:5,na:530,lim:1,w:'High sodium: about 510 to 530 mg per stick.'},
+ {id:'cl',n:'Crystal Light on-the-go',u:'packet',us:'packets',sv:'1 packet',f:['Lemonade','Pink Lemonade','Raspberry Lemonade','Fruit Punch','Other flavor'],cal:10,c:0,na:0,w:''}
 ];
 const DI=Object.fromEntries(DR.map(d=>[d.id,d]));
 function wkey(){const d=new Date();return 'water:'+d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
 function wget(){try{const v=JSON.parse(store.get(wkey())||'[]');return Array.isArray(v)?v.map(e=>e.k==='pov'?{k:'d',p:'pov',f:e.f,oz:e.oz,t:e.t}:e):[]}catch(e){return[]}}
 function wput(a){store.set(wkey(),JSON.stringify(a))}
-function dnut(e){const d=DI[e.p];if(!d)return{cal:0,c:0,na:0,caf:0};const m=d.per12?(+e.oz||0)/12:1;return{cal:d.cal*m,c:d.c*m,na:d.na*m,caf:(d.caf||0)*m}}
+function dq(e){const d=DI[e.p];return e.q!=null?+e.q:(d&&d.per12?(+e.oz||0):1)}
+function dsv(e){const d=DI[e.p];return d&&d.per12?dq(e)/12:dq(e)}
+function dnut(e){const d=DI[e.p];if(!d)return{cal:0,c:0,na:0,caf:0};const m=dsv(e);return{cal:d.cal*m,c:d.c*m,na:d.na*m,caf:(d.caf||0)*m}}
 function water(el,msg){
   const a=wget(),oz=a.reduce((t,e)=>t+(+e.oz||0),0),dk=a.filter(e=>e.k==='d'),pct=Math.min(100,oz/WGOAL*100);
   const T=dk.reduce((t,e)=>{const n=dnut(e);t.cal+=n.cal;t.c+=n.c;t.na+=n.na;t.caf+=n.caf;return t},{cal:0,c:0,na:0,caf:0});
@@ -221,25 +227,25 @@ function water(el,msg){
   <p class="wnum"><b>${r(oz)}</b> / ${WGOAL} oz · ${oz>=WGOAL?'Goal reached':r(WGOAL-oz)+' oz to go'}</p>
   <form class="wrow" id="wf"><input id="woz" type="number" inputmode="decimal" min="0.5" max="200" step="any" placeholder="Ounces of water" aria-label="Ounces of water" required><button class="btn p">Add water</button></form>
   <h3>Flavored and electrolyte drinks</h3>
-  <p class="wsub">Pick the drink and flavor, then type the ounces of water you mixed it with. The ounces count toward your water, and the calories, carbs, sodium and caffeine are tracked below.</p>
-  <form class="wrow" id="df"><select id="dpr" aria-label="Drink">${DR.map(d=>`<option value="${d.id}"${d.id===cur?' selected':''}>${esc(d.n)}</option>`).join('')}</select><select id="dfl" aria-label="Flavor">${fopts(cur)}</select><input id="doz" type="number" inputmode="decimal" min="0.5" max="64" step="any" placeholder="Ounces" aria-label="Ounces of water mixed" required><button class="btn p">Add drink</button></form>
+  <p class="wsub">Pick the drink and flavor, then enter how much you used (scoops, packets, squeezes, or ounces of Gatorade made to label strength) and the ounces of water. Sodium, calories, carbs and caffeine come from the amount you used, not the water. The water counts toward your 128 oz.</p>
+  <form class="wrow" id="df"><select id="dpr" aria-label="Drink">${DR.map(d=>`<option value="${d.id}"${d.id===cur?' selected':''}>${esc(d.n)}</option>`).join('')}</select><select id="dfl" aria-label="Flavor">${fopts(cur)}</select><label class="dq"><span id="dql">Scoops</span><input id="dq" type="number" inputmode="decimal" min="0.25" max="64" step="any" value="1" required></label><label class="dq"><span>Water (oz)</span><input id="doz" type="number" inputmode="decimal" min="0" max="128" step="any" placeholder="Ounces" required></label><button class="btn p">Add drink</button></form>
   <p class="wsub" id="dinfo"></p>
   <div class="wwarn" id="dwarn" role="status" aria-live="polite">${msg||''}</div>
   ${dk.length?`<p class="wtot">Drinks today: ${ri(T.cal)} calories · ${r(T.c)} g carbs · ${ri(T.na).toLocaleString()} mg sodium${T.caf?` · ${ri(T.caf)} mg caffeine`:''}</p>`:''}
-  ${a.length?`<ul class="wlog">${a.map((e,i)=>`<li><span>${new Date(e.t).toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})} · ${r(e.oz)} oz ${e.k==='d'&&DI[e.p]?esc(DI[e.p].n)+', '+esc(DI[e.p].f[e.f]||''):'water'}</span><button data-del="${i}" aria-label="Remove this entry">Remove</button></li>`).join('')}</ul>`:''}
+  ${a.length?`<ul class="wlog">${a.map((e,i)=>`<li><span>${new Date(e.t).toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})} · ${e.k==='d'&&DI[e.p]?(()=>{const d=DI[e.p],q=dq(e),n=dnut(e);return esc(d.n)+', '+esc(d.f[e.f]||'')+' · '+r(q)+' '+(d.per12?'oz Gatorade':(q===1?d.u:d.us))+' · '+(d.na?Math.round(n.na)+' mg sodium':'low sodium')+' · '+r(e.oz)+' oz water'})():r(e.oz)+' oz water'}</span><button data-del="${i}" aria-label="Remove this entry">Remove</button></li>`).join('')}</ul>`:''}
   </section>`;
   const pr=el.querySelector('#dpr'),fl=el.querySelector('#dfl'),info=el.querySelector('#dinfo');
-  const showInfo=()=>{const d=DI[pr.value];info.innerHTML=`<b>${esc(d.n)}</b> (${esc(d.sv)}): ${d.cal} calories · ${d.c} g carbs · ${d.na?d.na+' mg sodium':'low sodium'}${d.caf?' · '+d.caf+' mg caffeine':''}.${d.lim?' <b>Suggested limit: '+d.lim+' a day.</b>':''}`};
+  const ql=el.querySelector('#dql'),qi=el.querySelector('#dq');const showInfo=()=>{const d=DI[pr.value];ql.textContent=d.per12?'Gatorade (oz)':d.us.charAt(0).toUpperCase()+d.us.slice(1);qi.value=d.per12?12:1;qi.step=d.per12?'any':'0.25';info.innerHTML=`<b>Per ${esc(d.sv)}:</b> ${d.na?d.na+' mg sodium':'low sodium (no number on label)'} · ${d.cal} calories · ${d.c} g carbs${d.caf?' · '+d.caf+' mg caffeine':''}.${d.lim?' <b>Suggested limit: '+d.lim+(d.per12?' serving (12 oz)':' '+d.u)+' a day.</b>':''}`};
   showInfo();
   pr.addEventListener('change',()=>{store.set('drinklast',pr.value);fl.innerHTML=DI[pr.value].f.map((x,i)=>`<option value="${i}">${esc(x)}</option>`).join('');showInfo()});
   el.querySelector('#wf').addEventListener('submit',ev=>{ev.preventDefault();const v=parseFloat(el.querySelector('#woz').value);if(!(v>0))return;const b=wget();b.push({k:'w',oz:v,t:Date.now()});wput(b);water(el)});
-  el.querySelector('#df').addEventListener('submit',ev=>{ev.preventDefault();const v=parseFloat(el.querySelector('#doz').value);if(!(v>0))return;const p=pr.value,f=+fl.value,d=DI[p];
+  el.querySelector('#df').addEventListener('submit',ev=>{ev.preventDefault();const v=parseFloat(el.querySelector('#doz').value)||0,q=parseFloat(qi.value);if(!(q>0)||v<0)return;const p=pr.value,f=+fl.value,d=DI[p];
     store.set('drinklast',p);store.set('drinkflav:'+p,String(f));
-    const b=wget(),e={k:'d',p,f,oz:v,t:Date.now()};b.push(e);wput(b);
-    const n=dnut(e),cnt=b.filter(x=>x.k==='d'&&x.p===p).length,na=b.filter(x=>x.k==='d').reduce((t,x)=>t+dnut(x).na,0);
+    const b=wget(),e={k:'d',p,f,oz:v,q,t:Date.now()};b.push(e);wput(b);
+    const n=dnut(e),cnt=b.filter(x=>x.k==='d'&&x.p===p).reduce((t,x)=>t+dsv(x),0),na=b.filter(x=>x.k==='d').reduce((t,x)=>t+dnut(x).na,0);
     let m=`Added ${Math.round(n.cal)} calories, ${Math.round(n.c*10)/10} g carbs${n.na?', '+Math.round(n.na)+' mg sodium':''}${n.caf?', '+Math.round(n.caf)+' mg caffeine':''}. Drink sodium today: ${Math.round(na).toLocaleString()} mg.`;
     if(d.w)m=`<b>Heads up:</b> ${d.w} `+m;
-    if(d.lim)m+=cnt>d.lim?` <b>You are over the suggested limit of ${d.lim} a day for ${esc(d.n)}.</b>`:` Suggested limit: ${d.lim} a day.`;
+    const lu=d.per12?'serving (12 oz)':d.u;if(d.lim)m+=cnt>d.lim+1e-9?` <b>You are over the suggested limit of ${d.lim} ${lu} a day for ${esc(d.n)}.</b>`:` Suggested limit: ${d.lim} ${lu} a day.`;
     water(el,m)});
   el.querySelectorAll('[data-del]').forEach(btn=>btn.addEventListener('click',()=>{const b=wget();b.splice(+btn.dataset.del,1);wput(b);water(el)}));
 }
